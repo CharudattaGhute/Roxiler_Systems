@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Table, Form, InputGroup } from "react-bootstrap";
+import { Table, Form, InputGroup, Row, Col } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Button } from "react-bootstrap";
+import BarChartComponent from "./BarchartComponent"; // Import the BarChartComponent
 
 import "./styles.css";
 
@@ -206,20 +207,29 @@ const TransactionTable = () => {
         </div>
       </div>
 
-      {/* Display statistics */}
-      <div className="statistics-container">
-        <p>
-          <strong>Total Sale Amount:</strong> {totalSales}
-        </p>
-        <p>
-          <strong>Total Sold Items:</strong> {soldItems}
-        </p>
-        <p>
-          <strong>Total Not Sold Items:</strong> {notSoldItems}
-        </p>
-      </div>
+      {/* Display the Bar Chart above the table */}
+      <Row>
+        <Col md={8}>
+          <BarChartComponent selectedMonth={month} selectedYear={year} />
+        </Col>
+        <Col md={4}>
+          {/* Display statistics */}
+          <div className="statistics-container">
+            <p>
+              <strong>Total Sale Amount:</strong> {totalSales}
+            </p>
+            <p>
+              <strong>Total Sold Items:</strong> {soldItems}
+            </p>
+            <p>
+              <strong>Total Not Sold Items:</strong> {notSoldItems}
+            </p>
+          </div>
+        </Col>
+      </Row>
+      <hr />
 
-      <Table striped bordered hover className="table">
+      <Table striped bordered hover className="table mt-3">
         <thead>
           <tr>
             <th>ID</th>
