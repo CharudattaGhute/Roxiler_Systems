@@ -217,6 +217,7 @@ const getCategoriesCount = async (req, res) => {
       .send({ message: "Error fetching category data", error: error.message });
   }
 };
+
 module.exports = {
   initializeDatabase,
   getAllTransactions,

@@ -12,37 +12,36 @@ const CategoryPieChart = ({ selectedMonth, selectedYear }) => {
       setLoading(true);
       try {
         const monthIndex =
-          new Date(Date.parse(`${selectedMonth} 1, 2021`)).getMonth() + 1; // Convert month name to index
+          new Date(Date.parse(`${selectedMonth} 1, 2021`)).getMonth() + 1;
         const response = await axios.get(
           `http://localhost:5001/api/transaction/getCategoriesCount`,
           {
-            params: { month: monthIndex, year: selectedYear }, // Use selectedYear for fetching data
+            params: { month: monthIndex, year: selectedYear },
           }
         );
 
-        // Ensure the response has the expected structure
         if (response.data && Array.isArray(response.data.data)) {
           setCategoryData(response.data.data);
         } else {
           console.error("Unexpected response format:", response.data);
-          setCategoryData([]); // Set to empty array if data format is unexpected
+          setCategoryData([]);
         }
       } catch (error) {
         console.error("Error fetching category data:", error);
-        setCategoryData([]); // Reset to empty array on error
+        setCategoryData([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [selectedMonth, selectedYear]); // Add selectedYear as a dependency to refetch data when it changes
+  }, [selectedMonth, selectedYear]);
 
   const chartData = {
-    labels: categoryData.map((item) => item.category || "Unknown"), // Fallback to "Unknown" if category is undefined
+    labels: categoryData.map((item) => item.category || "Unknown"),
     datasets: [
       {
-        data: categoryData.map((item) => item.count || 0), // Fallback to 0 if count is undefined
+        data: categoryData.map((item) => item.count || 0),
         backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"],
       },
     ],

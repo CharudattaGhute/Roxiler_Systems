@@ -37,11 +37,10 @@ const BarChartComponent = ({ selectedMonth, selectedYear }) => {
 
   useEffect(() => {
     if (selectedMonth && selectedYear) {
-      fetchBarChartData(); // Fetch data whenever selected month or year changes
+      fetchBarChartData();
     }
   }, [selectedMonth, selectedYear]);
 
-  // Prepare data for the Bar chart
   const data = {
     labels: [
       "0 - 100",
@@ -58,8 +57,8 @@ const BarChartComponent = ({ selectedMonth, selectedYear }) => {
     datasets: [
       {
         label: "Number of Items",
-        data: chartData.map((range) => range.count || 0), // Extract count from fetched data
-        backgroundColor: "rgba(75, 192, 192, 0.6)", // Example color
+        data: chartData.map((range) => range.count || 0),
+        backgroundColor: "rgba(75, 192, 192, 0.6)",
       },
     ],
   };

@@ -4,21 +4,21 @@
 }
 
 .chart-title {
-    font-size: 12px; /* Smaller title font size */
+    font-size: 12px; 
     margin-bottom: 5px;
 }
 
-/* Wrapping the pie chart to set custom dimensions */
+
 .chart-wrapper {
-    width: 120px; /* Adjusted width of the chart */
-    height: 120px; /* Adjusted height of the chart */
-    margin: 0 auto; /* Centering the chart */
+    width: 120px; 
+    height: 120px; 
+    margin: 0 auto; 
 }
 
-/* Optional: Add responsive design for smaller screens */
+
 @media (max-width: 768px) {
     .chart-wrapper {
-        width: 100px; /* Smaller width for smaller screens */
-        height: 100px; /* Smaller height for smaller screens */
+        width: 100px; 
+        height: 100px; 
     }
 }

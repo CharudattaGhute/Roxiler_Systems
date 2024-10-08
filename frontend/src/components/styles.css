@@ -1,8 +1,8 @@
 .table-container {
     margin: 20px;
-    background-color: #f8f9fa; /* Light background color for the container */
-    padding: 20px; /* Optional padding for aesthetics */
-    border-radius: 8px; /* Optional rounded corners */
+    background-color: #f8f9fa; 
+    padding: 20px; 
+    border-radius: 8px; 
 }
 
 .search-filter-container {
@@ -32,29 +32,29 @@
 
 .table {
     margin-top: 20px;
-    background-color: #ffffff; /* White background for the table */
-    border-collapse: collapse; /* Ensures borders are collapsed */
-    border-radius: 8px; /* Optional rounded corners */
-    overflow: hidden; /* Rounds the corners for the table */
+    background-color: #ffffff; 
+    border-collapse: collapse; 
+    border-radius: 8px; 
+    overflow: hidden; 
 }
 
 .table th {
-    background-color: #007bff; /* Bootstrap primary color */
-    color: white; /* Text color for the header */
-    font-weight: bold; /* Make header text bold */
+    background-color: #007bff; 
+    color: white; 
+    font-weight: bold; 
 }
 
 .table th, .table td {
-    padding: 12px; /* Padding for table cells */
-    text-align: left; /* Align text to the left */
+    padding: 12px; 
+    text-align: left; 
 }
 
 .table tbody tr:nth-child(even) {
-    background-color: #f2f2f2; /* Light gray background for even rows */
+    background-color: #f2f2f2; 
 }
 
 .table tbody tr:hover {
-    background-color: #e9ecef; /* Light gray background on hover */
+    background-color: #e9ecef; 
 }
 
 .pagination-container {
@@ -71,7 +71,7 @@
 .pagination-arrows {
     display: flex;
     align-items: center;
-    gap: 5px; /* Reduce space between arrows */
+    gap: 5px; 
 }
 
 .pagination-arrow {
@@ -99,27 +99,27 @@
 .search-button:hover {
     background-color: #0056b3; 
 }
-/* Container for the statistics */
+
 .statistics-container {
     display: flex;
     justify-content: space-around;
     margin: 20px 0;
     padding: 10px;
-    background-color: #f8f9fa; /* Light background for statistics section */
+    background-color: #f8f9fa; 
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
   }
   
-  /* Individual statistic item */
+  
   .statistics-container p {
     margin: 0;
-    font-size: 1.2rem; /* Increase font size */
+    font-size: 1.2rem; 
     font-weight: bold;
-    color: #333; /* Text color */
+    color: #333; 
   }
   
-  /* Statistic labels */
+  
   .statistics-container p strong {
-    color: #090a0b; /* Change this to your primary color */
+    color: #090a0b; 
   }
   

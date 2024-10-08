@@ -10,8 +10,8 @@ import "./styles.css";
 const TransactionTable = () => {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
-  const [month, setMonth] = useState("March"); // Default month
-  const [year, setYear] = useState("2022"); // Default year
+  const [month, setMonth] = useState("March");
+  const [year, setYear] = useState("2022");
   const [searchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -99,10 +99,9 @@ const TransactionTable = () => {
     fetchTransactions();
   }, []);
 
-  // Fetch statistics for the default month and year on component mount
   useEffect(() => {
     fetchStatistics(month, year);
-  }, [month, year]); // Refetch when month or year changes
+  }, [month, year]);
 
   const handleSearch = (e) => {
     const searchValue = e.target.value.toLowerCase();
@@ -196,15 +195,12 @@ const TransactionTable = () => {
       </div>
 
       <Row>
-        {/* BarChart occupies 6 columns */}
         <Col md={6}>
           <BarChartComponent selectedMonth={month} selectedYear={year} />
         </Col>
 
-        {/* Statistics and Pie Chart occupy another 6 columns */}
         <Col>
           <Row>
-            {/* Pie Chart occupies 6 columns */}
             <Col md={6} style={{ marginLeft: "30%" }}>
               <div className="piechart-container">
                 <h1
