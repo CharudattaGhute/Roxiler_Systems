@@ -3,15 +3,15 @@ import axios from "axios";
 import { Table, Form, InputGroup, Row, Col } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Button } from "react-bootstrap";
-import BarChartComponent from "./BarchartComponent"; // Import the BarChartComponent
-
+import BarChartComponent from "./BarchartComponent";
+import CategoryPieChart from "./CategoryPieChart";
 import "./styles.css";
 
 const TransactionTable = () => {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
-  const [month, setMonth] = useState("March");
-  const [year, setYear] = useState("2022");
+  const [month, setMonth] = useState("March"); // Default month
+  const [year, setYear] = useState("2022"); // Default year
   const [searchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -39,7 +39,6 @@ const TransactionTable = () => {
 
   const years = ["2021", "2022"];
 
-  // Fetch transactions
   const fetchTransactions = async () => {
     try {
       const response = await axios.get(
@@ -47,12 +46,10 @@ const TransactionTable = () => {
       );
 
       const transactions = response.data.data;
-      console.log(transactions);
-
       if (Array.isArray(transactions)) {
         setTransactions(transactions);
         setFilteredTransactions(transactions);
-        setTotalPages(Math.ceil(transactions.length / rowsPerPage)); // Set total pages based on all transactions
+        setTotalPages(Math.ceil(transactions.length / rowsPerPage));
       } else {
         console.error("Unexpected response format:", response.data);
       }
@@ -70,24 +67,18 @@ const TransactionTable = () => {
       );
       const { totalSalesAmount, totalSoldItems, totalNotSoldItems } =
         response.data;
-      console.log(response.data);
 
       setTotalSales(totalSalesAmount);
       setSoldItems(totalSoldItems);
       setNotSoldItems(totalNotSoldItems);
     } catch (error) {
-      console.error(
-        "Error fetching statistics:",
-        error.response ? error.response.data : error.message
-      );
-      // Reset statistics on error
+      console.error("Error fetching statistics:", error);
       setTotalSales(0);
       setSoldItems(0);
       setNotSoldItems(0);
     }
   };
 
-  // Fetch and filter transactions by month and year
   const filterTransactionsByMonthYear = () => {
     const filtered = transactions.filter((transaction) => {
       const transactionDate = new Date(transaction.dateOfSale);
@@ -100,9 +91,7 @@ const TransactionTable = () => {
     });
 
     setFilteredTransactions(filtered);
-    setCurrentPage(1); // Reset to first page
-
-    // Fetch statistics for the selected month and year
+    setCurrentPage(1);
     fetchStatistics(month, year);
   };
 
@@ -110,16 +99,18 @@ const TransactionTable = () => {
     fetchTransactions();
   }, []);
 
+  // Fetch statistics for the default month and year on component mount
+  useEffect(() => {
+    fetchStatistics(month, year);
+  }, [month, year]); // Refetch when month or year changes
+
   const handleSearch = (e) => {
     const searchValue = e.target.value.toLowerCase();
     setSearchText(searchValue);
 
-    // Update filtered transactions based on search text
     if (searchValue === "") {
-      // If search is empty, show all transactions
       setFilteredTransactions(transactions);
     } else {
-      // Filter based on search criteria
       const filtered = transactions.filter(
         (transaction) =>
           transaction.title.toLowerCase().includes(searchValue) ||
@@ -130,7 +121,7 @@ const TransactionTable = () => {
       );
       setFilteredTransactions(filtered);
     }
-    // Reset to first page whenever search changes
+
     setCurrentPage(1);
   };
 
@@ -145,19 +136,16 @@ const TransactionTable = () => {
 
   const handleNext = () => {
     if (currentPage < totalPages) {
-      const nextPage = currentPage + 1;
-      setCurrentPage(nextPage);
+      setCurrentPage(currentPage + 1);
     }
   };
 
   const handlePrevious = () => {
     if (currentPage > 1) {
-      const prevPage = currentPage - 1;
-      setCurrentPage(prevPage);
+      setCurrentPage(currentPage - 1);
     }
   };
 
-  // Effect to update total pages whenever filtered transactions change
   useEffect(() => {
     setTotalPages(Math.ceil(filteredTransactions.length / rowsPerPage));
   }, [filteredTransactions]);
@@ -207,26 +195,43 @@ const TransactionTable = () => {
         </div>
       </div>
 
-      {/* Display the Bar Chart above the table */}
       <Row>
-        <Col md={8}>
+        {/* BarChart occupies 6 columns */}
+        <Col md={6}>
           <BarChartComponent selectedMonth={month} selectedYear={year} />
         </Col>
-        <Col md={4}>
-          {/* Display statistics */}
-          <div className="statistics-container">
-            <p>
-              <strong>Total Sale Amount:</strong> {totalSales}
-            </p>
-            <p>
-              <strong>Total Sold Items:</strong> {soldItems}
-            </p>
-            <p>
-              <strong>Total Not Sold Items:</strong> {notSoldItems}
-            </p>
-          </div>
+
+        {/* Statistics and Pie Chart occupy another 6 columns */}
+        <Col>
+          <Row>
+            {/* Pie Chart occupies 6 columns */}
+            <Col md={6} style={{ marginLeft: "30%" }}>
+              <div className="piechart-container">
+                <h1
+                  className="chart-title"
+                  style={{ fontWeight: "bold", color: "black" }}
+                >
+                  Category Distribution
+                </h1>
+                <CategoryPieChart selectedMonth={month} selectedYear={year} />
+              </div>
+            </Col>
+          </Row>
         </Col>
       </Row>
+      <Col md={6} style={{ marginLeft: "25%" }}>
+        <div className="statistics-container" style={{ color: "black" }}>
+          <p>
+            <strong>Total Sale Amount:</strong> {totalSales}
+          </p>
+          <p>
+            <strong>Total Sold Items:</strong> {soldItems}
+          </p>
+          <p>
+            <strong>Total Not Sold Items:</strong> {notSoldItems}
+          </p>
+        </div>
+      </Col>
       <hr />
 
       <Table striped bordered hover className="table mt-3">

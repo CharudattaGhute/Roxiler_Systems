@@ -1,10 +1,8 @@
-// BarChartComponent.js
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { Chart, registerables } from "chart.js"; // Import registerables
+import { Chart, registerables } from "chart.js";
 import axios from "axios";
 
-// Register all necessary components
 Chart.register(...registerables);
 
 const BarChartComponent = ({ selectedMonth, selectedYear }) => {
@@ -13,27 +11,27 @@ const BarChartComponent = ({ selectedMonth, selectedYear }) => {
   const fetchBarChartData = async () => {
     try {
       const monthIndex =
-        new Date(Date.parse(selectedMonth + " 1, 2020")).getMonth() + 1; // Convert month name to number
+        new Date(Date.parse(selectedMonth + " 1, 2020")).getMonth() + 1;
       console.log(
         `Fetching data for month: ${monthIndex}, year: ${selectedYear}`
-      ); // Log values
+      );
 
       const response = await axios.get(
         `http://localhost:5001/api/transaction/getBarChartData?month=${monthIndex}&year=${selectedYear}`
       );
 
       if (response.status === 200) {
-        setChartData(response.data); // Set chart data
+        setChartData(response.data);
       } else {
         console.error("Failed to fetch data:", response.data);
-        setChartData([]); // Reset data if not successful
+        setChartData([]);
       }
     } catch (error) {
       console.error(
         "Error fetching bar chart data:",
         error.response ? error.response.data : error.message
       );
-      setChartData([]); // Reset data on error
+      setChartData([]);
     }
   };
 

@@ -1,12 +1,9 @@
-// src/components/Navbar.js
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 
 const NavigationBar = () => {
   const handleLogout = () => {
     console.log("Logout clicked");
-    // Add your logout logic here
-    // For example, clearing user session, localStorage, etc.
   };
 
   return (
@@ -34,7 +31,7 @@ const NavigationBar = () => {
             About
           </Nav.Link>
         </Nav>
-        {/* Right-aligned logout */}
+
         <Nav className="ml-auto">
           <Nav.Link href="#" onClick={handleLogout}>
             Logout
